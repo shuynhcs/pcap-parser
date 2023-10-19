@@ -75,9 +75,7 @@ def main():
     other_flows = {}
     ips = set()
 
-    for ts, buf in pcap: 
-    
-        # Unpack 802.11 frame here: buf -> eth
+    for ts, buf in pcap:
 
         # Unpack the Ethernet frame & fetch ip data
         eth = dpkt.ethernet.Ethernet(buf)
