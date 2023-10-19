@@ -13,6 +13,8 @@ tcp_flag_map = {dpkt.tcp.TH_SYN : 'SYN',
                 dpkt.tcp.TH_PUSH : 'PSH',
                 dpkt.tcp.TH_RST : 'RST',
                 dpkt.tcp.TH_URG : 'URG',
+                dpkt.tcp.TH_ECE : 'ECE',
+                dpkt.tcp.TH_CWR : 'CWR',
                 }
 
 def dumpflow(flows, flow, package_data):
