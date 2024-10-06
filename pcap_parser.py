@@ -6,7 +6,6 @@ from dpkt.ethernet import Ethernet
 import socket
 import datetime
 
-
 tcp_flag_map = {dpkt.tcp.TH_SYN : 'SYN',
                 dpkt.tcp.TH_ACK : 'ACK',
                 dpkt.tcp.TH_FIN : 'FIN',
@@ -84,9 +83,8 @@ def main():
         ip = eth.data
 
         # Get TIME, LENGTH, PROTOCOL
-        time_stamp = str(datetime.datetime.utcfromtimestamp(ts)) # Might need slicing
+        time_stamp = str(datetime.datetime.utcfromtimestamp(ts))
         pkt_bytes = len(eth)
-        #protocol = ip.get_proto(ip.p).__name__
         protocol = ip.p
 
         # Get TOS, TTL
@@ -106,7 +104,6 @@ def main():
         # Store ip & port tuple -> flow
         flow = sorted([(src_ip, src_port), (dst_ip, dst_port)])
         flow = (flow[0], flow[1])
-
         
         # Initialize a dictionary of flow data
         pkt_data = {}
@@ -120,7 +117,6 @@ def main():
             # Update flags
             for key in tcp_flag_map.keys():
                 pkt_data[tcp_flag_map[key]] = 1 if (tcp.flags & key) else 0
-            
             
         # If packet protocol is UDP    
         else:
