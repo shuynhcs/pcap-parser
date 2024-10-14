@@ -1,7 +1,7 @@
 # pcap-parser
 
 ## Description
-Extract TCP and UDP packet metadata from a PCAP file into csv.
+Extract TCP and UDP packet metadata from a PCAP file into csv using DPKT.
 
 ## Specifications
 Metadata are captured based on traffic flows identified by source and destination IP adresses and port numbers. Fields captured or calculated are:
