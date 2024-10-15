@@ -19,19 +19,19 @@ tcp_flag_map = {dpkt.tcp.TH_SYN : 'SYN',
 def dumpflow(flows, flow, package_data):
 
     # Check if ip & port tuple in flows
-    if flows.get(flow): 
-        flows[flow]['bytes'] += package_data['bytes']
-        flows[flow]['IAT'] = package_data['ts'] - flows[flow]['ts'] 
-        flows[flow]['duration'] += flows[flow]['IAT']
-        flows[flow]['ts'] = package_data['ts']
-        flows[flow]['packets'] += 1
-        if flows[flow]['duration'] > 0:
-            flows[flow]['bytes_s'] = flows[flow]['bytes']/flows[flow]['duration']
-            flows[flow]['packets_s'] = flows[flow]['packets']/flows[flow]['duration']
-        flows[flow]['avg_pkt_size'] = flows[flow]['bytes']/float(flows[flow]['packets'])
+    current = flows.get(flow)
+    if current is not None:
+        current['bytes'] += package_data['bytes']
+        current['IAT'] = package_data['ts'] - current['ts'] 
+        current['duration'] += current['IAT']
+        current['ts'] = package_data['ts']
+        current['packets'] += 1
+        if current['duration'] > 0:
+            current['bytes_s'] = current['bytes']/current['duration']
+            current['packets_s'] = current['packets']/current['duration']
+        current['avg_pkt_size'] = current['bytes']/float(current['packets'])
         for key in tcp_flag_map.values():
-            flows[flow][key] += package_data[key]
-        
+            current[key] += package_data[key]
     else:
         # Append new flow
         flows[flow] = package_data
